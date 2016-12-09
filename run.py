@@ -20,7 +20,7 @@ from common.mods import api, bcrypt, login_manager
 
 
 def register_apis():
-    api.add_resource(UsersApi, "/users")
+    api.add_resource(UsersApi, "/users", "/users/<int:user_id>")
     api.add_resource(SessionApi, "/session")
     api.add_resource(SessionEmailApi, "/session/email")
     api.add_resource(PostsApi, "/posts")

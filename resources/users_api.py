@@ -10,7 +10,7 @@ from common.mods import bcrypt, db
 from common.api_errors import UserNotFound, InternalServerError, NotValidUsername, UsernameTooShort, UsernameTooLong, \
     UserAlreadyExist, UsernameAlreadyTaken, NotValidEmail, EmailAlreadyTaken
 from common.models import User, Session
-from common.fields import session_fields
+from common.fields import session_fields, user_fields
 from common.regex import REGEX_USERNAME, REGEX_EMAIL
 from common.service_configs import MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH, USER_PROFILE_HEIGHT_NORMAL, \
     USER_PROFILE_WIDTH_NORMAL
@@ -41,6 +41,15 @@ class UsersApi(Resource):
         self.post_parser.add_argument(KEY_PASSWORD, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_USERNAME, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_PROFILE_THUMB, type=FileStorage, location=LOCATION_FILES)
+
+    @marshal_with(user_fields)
+    def get(self, user_id):
+        user = User.query.filter(User.id == user_id).first()
+
+        if user is None:
+            raise UserNotFound
+
+        return user
 
     @marshal_with(session_fields, envelope="session")
     def post(self):

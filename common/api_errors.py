@@ -37,6 +37,10 @@ class PostNotFound(HTTPException):
     pass
 
 
+class UserNotFound(HTTPException):
+    pass
+
+
 class NotValidAccessToken(HTTPException):
     pass
 
