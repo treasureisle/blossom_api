@@ -111,3 +111,13 @@ wish_field = {
     "post": fields.Nested(post_field)
 }
 
+follower_field = {
+    "id": fields.Integer,
+    "follower_id": fields.Integer,
+    "following_id": fields.Integer,
+}
+
+follow_wrapper = {
+    "followings": fields.List(fields.Nested(follower_field)),
+    "followers": fields.List(fields.Nested(follower_field))
+}

@@ -42,7 +42,7 @@ class UsersApi(Resource):
         self.post_parser.add_argument(KEY_USERNAME, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_PROFILE_THUMB, type=FileStorage, location=LOCATION_FILES)
 
-    @marshal_with(user_fields)
+    @marshal_with(user_fields, envelope="user")
     def get(self, user_id):
         user = User.query.filter(User.id == user_id).first()
 

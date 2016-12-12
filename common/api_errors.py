@@ -104,6 +104,8 @@ class VoteEnded(HTTPException):
 class PasswordTooShort(HTTPException):
     pass
 
+class FollowNotFound(HTTPException):
+    pass
 
 class InternalServerError(HTTPException):
     pass
@@ -226,6 +228,10 @@ errors = {
     "PasswordTooShort": {
         "message": "password is too short",
         "status": 400
+    },
+    "FollowNotFound": {
+        "message": "follow not found",
+        "status": 404
     },
     "InternalServerError": {
         "message": "something wrong with api server",
