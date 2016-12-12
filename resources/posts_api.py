@@ -21,7 +21,7 @@ from utils import get_page_offset, api_login_required, get_now_mysql_datetime, u
 from tasks import task_delete_s3_key
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 KEY_POST_TYPE = "post_type"
 KEY_ORDER = "order"

@@ -4,7 +4,7 @@ from utils import generate_client_access_token
 from unittests.api_test import ApiTestCase
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 KEY_ID = "id"
 KEY_ACCESS_TOKEN = "access_token"

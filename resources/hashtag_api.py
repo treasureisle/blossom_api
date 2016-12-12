@@ -10,7 +10,7 @@ from common.fields import hashtag_field
 from utils import api_login_required, get_now_mysql_datetime
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 KEY_COUNT = "count"
 KEY_NAME = ["name1", "name2", "name3", "name4", "name5"]

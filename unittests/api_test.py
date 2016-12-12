@@ -8,7 +8,7 @@ from common.service_configs import TEST_USER_USERNAME, TEST_USER_PASSWORD
 from unittests.base_test import BaseTestCase
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 
 class ApiTestCase(BaseTestCase):

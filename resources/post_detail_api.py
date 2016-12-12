@@ -6,7 +6,7 @@ from common.models import Post
 from common.fields import post_detail_field
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 
 class PostDetailApi(Resource):

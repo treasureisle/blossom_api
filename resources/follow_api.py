@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from flask.ext.restful import Resource, marshal_with, reqparse
+from flask.ext.restful import Resource, marshal_with
 from flask.ext.login import current_user
 
 from common.api_errors import UserNotFound, FollowNotFound, Forbidden
@@ -10,7 +10,7 @@ from common.mods import db
 from utils import api_login_required, get_now_mysql_datetime
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 
 class FollowApi(Resource):

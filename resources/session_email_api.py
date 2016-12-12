@@ -8,7 +8,7 @@ from common.mods import bcrypt, db
 from utils import generate_client_access_token
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 KEY_EMAIL = "email"
 KEY_PASSWORD = "password"

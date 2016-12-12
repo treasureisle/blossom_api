@@ -4,7 +4,7 @@ from resources.session_email_api import KEY_EMAIL, KEY_PASSWORD
 from unittests.api_test import ApiTestCase
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 
 class SessionEmailApiTestCase(ApiTestCase):

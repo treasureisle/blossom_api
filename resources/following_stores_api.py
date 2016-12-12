@@ -10,7 +10,7 @@ from common.service_configs import POST_ROW
 from utils import get_page_offset
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 KEY_ROW = "row"
 KEY_PAGE = "page"

@@ -7,7 +7,7 @@ from common.models import User
 from common.mods import bcrypt
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 KEY_ID = "id"
 KEY_ACCESS_TOKEN = "access_token"

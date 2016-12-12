@@ -7,7 +7,7 @@ from unittests.session_api_test import SessionApiTestCase
 from unittests.session_email_api_test import SessionEmailApiTestCase
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 
 def test_all():

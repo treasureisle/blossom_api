@@ -7,7 +7,7 @@ from resources.users_api import KEY_REG_TYPE, REG_TYPE_EMAIL, KEY_EMAIL, KEY_PAS
 from unittests.api_test import ApiTestCase
 
 __author__ = "Philgyu,Seong"
-__email__ = "philgyu.seong@gluvi.co"
+__email__ = "phil@treasureisle.co"
 
 
 class UsersApiTestCase(ApiTestCase):
