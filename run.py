@@ -16,6 +16,8 @@ from resources.post_detail_api import PostDetailApi
 from resources.color_size_api import ColorSizeApi
 from resources.hashtag_api import HashtagApi
 from resources.follow_api import FollowApi
+from resources.liked_post_api import LikedPostApi
+from resources.following_stores_api import FollowingStoresApi
 
 from common.mods import api, bcrypt, login_manager
 
@@ -29,6 +31,8 @@ def register_apis():
     api.add_resource(ColorSizeApi, "/color_sizes/<int:post_id>")
     api.add_resource(HashtagApi, "/hashtags/<int:post_id>")
     api.add_resource(FollowApi, "/follow", "/follow/<int:id>")
+    api.add_resource(LikedPostApi, "/liked_posts/<int:user_id>")
+    api.add_resource(FollowingStoresApi, "/following_stores/<int:user_id>")
 
 
 # noinspection PyUnusedLocal

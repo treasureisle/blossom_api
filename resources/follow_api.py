@@ -14,7 +14,7 @@ __email__ = "philgyu.seong@gluvi.co"
 
 
 class FollowApi(Resource):
-    @marshal_with(follow_wrapper)
+    @marshal_with(follow_wrapper, envelope="follow")
     def get(self, id):
         followings = Follow.query.filter(Follow.follower_id == id).all()
         followers = Follow.query.filter(Follow.following_id == id).all()
