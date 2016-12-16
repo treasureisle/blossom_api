@@ -3,7 +3,7 @@
 from flask.ext.restful import Resource, marshal_with
 from flask.ext.login import current_user
 
-from common.api_errors import UserNotFound, FollowNotFound, Forbidden
+from common.api_errors import UserNotFound, FollowNotFound
 from common.fields import follow_wrapper
 from common.models import Follow, User
 from common.mods import db
@@ -16,8 +16,8 @@ __email__ = "phil@treasureisle.co"
 class FollowApi(Resource):
     @marshal_with(follow_wrapper, envelope="follow")
     def get(self, id):
-        followings = Follow.query.filter(Follow.follower_id == id).all()
-        followers = Follow.query.filter(Follow.following_id == id).all()
+        followings = Follow.query.filter(Follow.following_id == id).all()
+        followers = Follow.query.filter(Follow.follower_id == id).all()
 
         follow_wrapper = {
             "followings": followings,
@@ -41,13 +41,10 @@ class FollowApi(Resource):
 
     @api_login_required
     def delete(self, id):
-        follow = Follow.query.filter(Follow.id == id).first()
+        follow = Follow.query.filter(Follow.follower_id == current_user.id).filter(Follow.following_id == id).first()
 
         if follow is None:
             raise FollowNotFound
-
-        if follow.follower_id != current_user.id:
-            raise Forbidden
 
         db.session.delete(follow)
         db.session.commit()

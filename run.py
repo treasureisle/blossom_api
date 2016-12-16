@@ -1,8 +1,5 @@
 # -*- coding:utf-8 -*-
 
-__author__ = "Philgyu, Seong"
-__email__ = "phil@treasureisle.co"
-
 from flask import Flask
 from common.mods import db
 from common.api_errors import errors
@@ -19,8 +16,14 @@ from resources.follow_api import FollowApi
 from resources.liked_post_api import LikedPostApi
 from resources.following_stores_api import FollowingStoresApi
 from resources.like_api import LikeApi
+from resources.user_posts_api import UserPostsApi
+from resources.is_following_api import IsFollowingApi
+from resources.feeds_api import FeedsApi
 
 from common.mods import api, bcrypt, login_manager
+
+__author__ = "Philgyu, Seong"
+__email__ = "phil@treasureisle.co"
 
 
 def register_apis():
@@ -35,6 +38,9 @@ def register_apis():
     api.add_resource(LikedPostApi, "/liked_posts/<int:user_id>")
     api.add_resource(FollowingStoresApi, "/following_stores/<int:user_id>")
     api.add_resource(LikeApi, "/like/<int:id>")
+    api.add_resource(UserPostsApi, "/user_posts/<int:user_id>")
+    api.add_resource(IsFollowingApi, "/is_following/<int:user_id>")
+    api.add_resource(FeedsApi, "/feeds")
 
 
 # noinspection PyUnusedLocal

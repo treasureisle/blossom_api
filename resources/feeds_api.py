@@ -20,9 +20,7 @@ KEY_PAGE = "page"
 ORDER_SCORE = "score"
 
 POST_TYPE_SELL = "sell"
-POST_TYPE_BUY = "buy"
-POST_TYPE_REVIEW = "review"
-POST_TYPE_STORE = "store"
+POST_TYPE_COMMON = "common"
 
 
 class FeedsApi(Resource):
@@ -35,7 +33,7 @@ class FeedsApi(Resource):
 
             return following
 
-        following = get_following(current_user)
+        following = get_following(current_user.id)
 
         following_ids = [following_user.id for following_user in following]
         following_ids.append(current_user.id)
@@ -43,9 +41,15 @@ class FeedsApi(Resource):
         row = int(request.args.get(KEY_ROW, default=POST_ROW))
         page = int(request.args.get(KEY_PAGE, default=1))
         order = request.args.get(KEY_ORDER, default=ORDER_SCORE)
+        post_type = request.args.get(KEY_POST_TYPE, default=POST_TYPE_SELL)
 
-        if order == ORDER_SCORE:
-            posts = Post.query.filter(Post.user_id.in_(following_ids)).order_by(Post.score.desc()).\
-                offset(get_page_offset(page, row)).limit(row).all()
+        if post_type == POST_TYPE_SELL:
+            posts = Post.query.filter(Post.user_id.in_(following_ids)).filter(Post.post_type == 0).\
+                order_by(Post.score.desc()).offset(get_page_offset(page, row)).limit(row).all()
 
             return posts
+
+        posts = Post.query.filter(Post.user_id.in_(following_ids)).filter(Post.post_type != 0).\
+            order_by(Post.score.desc()).offset(get_page_offset(page, row)).limit(row).all()
+
+        return posts

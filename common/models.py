@@ -185,6 +185,15 @@ class Post(db.Model):
 
         return func.round(order + seconds / time_factor, 7)
 
+    @hybrid_property
+    def is_liked(self):
+        if not current_user.is_authenticated:
+            return False
+        my_like = Like.query.filter(Like.user_id == current_user.id). \
+            filter(Like.post_id == self.id).first()
+
+        return my_like is not None
+
 
 class ColorSize(db.Model):
     id = db.Column(db.INT, primary_key=True)
@@ -280,6 +289,15 @@ class Reply(db.Model):
         self.parent_id = parent_id
         self.text = text
         self.created_at = created_at
+
+    @hybrid_property
+    def is_liked(self):
+        if not current_user.is_authenticated:
+            return False
+        my_like = ReplyLike.query.filter(ReplyLike.user_id == current_user.id). \
+            filter(ReplyLike.reply_id == self.id).first()
+
+        return my_like is not None
 
 
 class ReplyLike(db.Model):

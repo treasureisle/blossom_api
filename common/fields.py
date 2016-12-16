@@ -20,21 +20,10 @@ user_fields = {
     "username": fields.String,
     "profile_thumb_url": fields.String,
     "introduce": fields.String,
-    "is_me": fields.Boolean,
+    "is_me": fields.Boolean
 }
 
 post_field = {
-    "id": fields.Integer,
-    "post_type": fields.Integer,
-    "user": fields.Nested(user_fields),
-    "img_url1": fields.String,
-    "title": fields.String,
-    "origin_price": fields.Integer,
-    "purchase_price": fields.Integer,
-    "fee": fields.Integer
-}
-
-post_detail_field = {
     "id": fields.Integer,
     "post_type": fields.Integer,
     "user": fields.Nested(user_fields),
@@ -45,6 +34,7 @@ post_detail_field = {
     "img_url5": fields.String,
     "title": fields.String,
     "brand": fields.String,
+    "product_name": fields.String,
     "origin_price": fields.Integer,
     "purchase_price": fields.Integer,
     "fee": fields.Integer,
@@ -52,7 +42,8 @@ post_detail_field = {
     "hashtag": fields.String,
     "text": fields.String,
     "replys": fields.Integer,
-    "likes": fields.Integer
+    "likes": fields.Integer,
+    "is_liked": fields.Boolean
 }
 
 reply_field = {
@@ -63,7 +54,8 @@ reply_field = {
     "text": fields.String,
     "likes": fields.Integer,
     "replys": fields.Integer,
-    "created_at": fields.datetime
+    "created_at": fields.datetime,
+    "is_liked": fields.Boolean
 }
 
 color_size_field = {

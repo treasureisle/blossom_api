@@ -4,7 +4,7 @@ from flask.ext.restful import Resource, marshal_with
 from flask.globals import request
 
 from common.api_errors import NotAllowedOrderType
-from common.models import Post, User
+from common.models import Post
 from common.fields import post_field
 from common.service_configs import POST_ROW
 from utils import get_page_offset
@@ -25,7 +25,7 @@ POST_TYPE_REVIEW = "review"
 POST_TYPE_STORE = "store"
 
 
-class UsersPostsApi(Resource):
+class UserPostsApi(Resource):
     @marshal_with(post_field, envelope="posts")
     def get(self, user_id):
 
