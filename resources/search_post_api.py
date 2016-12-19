@@ -1,12 +1,10 @@
 # -*- coding:utf-8 -*-
 
 from flask.ext.restful import Resource, marshal_with, reqparse
-from flask.globals import request
 
 from common.fields import post_field
 from common.api_errors import PostNotFound, NotAllowedSearchType
 from common.models import Post, Hashtag, HashtagPost
-from utils import api_login_required
 
 __author__ = "Philgyu,Seong"
 __email__ = "philgyu.seong@gluvi.co"
