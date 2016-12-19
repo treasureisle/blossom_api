@@ -35,7 +35,7 @@ class SearchPostApi(Resource):
             words = keyword.split()
             posts = []
 
-            perfect_posts = Post.query.filter(Post.title.like('%'+words+'%')).order_by(Post.score.desc()).all()
+            perfect_posts = Post.query.filter(Post.title.like('%'+keyword+'%')).order_by(Post.score.desc()).all()
             for perfect_post in perfect_posts:
                 perfect_post.search_score = 99999
                 posts.append(perfect_post)
@@ -82,7 +82,7 @@ class SearchPostApi(Resource):
             hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtag_id.in_(hashtag_ids)).all()
             post_ids = [hashtag_post.post_id for hashtag_post in hashtag_posts]
 
-            result = Post.query.filter(Post.id.in_(post_ids)).ordey_by(Post.score.desc()).all()
+            result = Post.query.filter(Post.id.in_(post_ids)).order_by(Post.score.desc()).all()
 
             if result is None:
                 raise PostNotFound

@@ -20,6 +20,7 @@ from resources.user_posts_api import UserPostsApi
 from resources.is_following_api import IsFollowingApi
 from resources.feeds_api import FeedsApi
 from resources.search_post_api import SearchPostApi
+from resources.search_user_api import SearchUserApi
 
 from common.mods import api, bcrypt, login_manager
 
@@ -43,6 +44,7 @@ def register_apis():
     api.add_resource(IsFollowingApi, "/is_following/<int:user_id>")
     api.add_resource(FeedsApi, "/feeds")
     api.add_resource(SearchPostApi, "/search_post")
+    api.add_resource(SearchUserApi, "/search_user")
 
 
 # noinspection PyUnusedLocal

@@ -17,12 +17,12 @@ KEY_SEARCH_TYPE_HASHTAG = "hashtag"
 LOCATION_FORM = "form"
 
 
-class SearchPostApi(Resource):
+class SearchUserApi(Resource):
     def __init__(self):
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(KEY_KEYWORD, location=LOCATION_FORM)
 
-    @marshal_with(user_fields, envelope="posts")
+    @marshal_with(user_fields, envelope="users")
     def post(self):
         args = self.post_parser.parse_args()
 
