@@ -89,6 +89,10 @@ class NotAllowedOrderType(HTTPException):
     pass
 
 
+class NotAllowedSearchType(HTTPException):
+    pass
+
+
 class TopicNotFound(HTTPException):
     pass
 
@@ -207,6 +211,10 @@ errors = {
     },
     "NotAllowedListType": {
         "message": "not allowed list type",
+        "status": 400
+    },
+    "NotAllowedSearchType": {
+        "message": "not allowed search type",
         "status": 400
     },
     "TopicNotFound": {
