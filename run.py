@@ -21,6 +21,7 @@ from resources.is_following_api import IsFollowingApi
 from resources.feeds_api import FeedsApi
 from resources.search_post_api import SearchPostApi
 from resources.search_user_api import SearchUserApi
+from resources.reply_api import ReplyApi
 
 from common.mods import api, bcrypt, login_manager
 

@@ -24,19 +24,13 @@ MIN_USERNAME_LENGTH = 4
 # 최대 유저네임 길이
 MAX_USERNAME_LENGTH = 16
 
-# 토픽 최대 길이
-MAX_TOPIC_LENGTH = 100
-
-# 비디오 댓글 최대 길이
-MAX_COMMENT_LENGTH = 200
+# 댓글 최대 길이
+MAX_REPLY_LENGTH = 200
 
 CLIENT_ACCESS_TOKEN_SALT = "rdk`{KG9_L+FS28S\*``6WbE{+L@,#"
 
-# 한줄에 나오는 next topic 줄수
-NEXT_TOPIC_ROW = 30
-
-# 비디오 댓글 페이지당 줄수
-COMMENT_ROW = 30
+# 댓글 페이지당 줄수
+REPLY_ROW = 30
 
 # 유저 프로필 썸네일 width
 USER_PROFILE_WIDTH_NORMAL = 200
