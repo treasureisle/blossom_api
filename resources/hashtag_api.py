@@ -5,7 +5,7 @@ from flask.ext.login import current_user
 
 from common.mods import db
 from common.api_errors import PostNotFound, Forbidden
-from common.models import Post, Hashtag, HashtagPost
+from common.models import Post, Hashtag, HashtagPost, HashtagScore, Category
 from common.fields import hashtag_field
 from utils import api_login_required, get_now_mysql_datetime
 
@@ -67,8 +67,14 @@ class HashtagApi(Resource):
             if hashtag is None:
                 hashtag = Hashtag(name=name, created_at=get_now_mysql_datetime())
                 db.session.add(hashtag)
+                db.session.flush()
+                db.session.refresh(hashtag)
 
-            print hashtag.name
+                categories = Category.query.all()
+
+                for category in categories:
+                    hashtag_score = HashtagScore(hashtag.id, category.id)
+                    db.session.add(hashtag_score)
 
             db.session.flush()
             db.session.refresh(hashtag)

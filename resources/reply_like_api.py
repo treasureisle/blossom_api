@@ -14,7 +14,7 @@ __email__ = "phil@treasureisle.co"
 KEY_POST_ID = "post_id"
 
 
-class LikeApi(Resource):
+class ReplyLikeApi(Resource):
     @api_login_required
     def post(self, id):
 
@@ -38,18 +38,16 @@ class LikeApi(Resource):
 
     @api_login_required
     def delete(self, id):
-        like = ReplyLike.query.filter(ReplyLike.id == id).first()
-
-        if like is None:
-            raise MyVoteNotFound
-
-        reply = Reply.query.filter(Reply.id == like.reply_id).first()
+        reply = Reply.query.filter(Reply.id == id).first()
 
         if reply is None:
             raise PostNotFound
 
-        if like.user_id != current_user.id:
-            raise Forbidden
+        like = ReplyLike.query.filter(ReplyLike.reply_id == reply.id).\
+            filter(ReplyLike.user_id == current_user.id).first()
+
+        if like is None:
+            raise MyVoteNotFound
 
         reply.likes -= 1
 

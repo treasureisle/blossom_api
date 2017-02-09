@@ -22,6 +22,13 @@ from resources.feeds_api import FeedsApi
 from resources.search_post_api import SearchPostApi
 from resources.search_user_api import SearchUserApi
 from resources.reply_api import ReplyApi
+from resources.reply_like_api import ReplyLikeApi
+from resources.basket_api import BasketApi
+from resources.purchase_api import PurchaseApi
+from resources.message_api import MessageApi
+from resources.user_detail_api import UserDetailApi
+from resources.category_api import CategoryApi
+from resources.hashtag_score_api import HashtagScoreApi
 
 from common.mods import api, bcrypt, login_manager
 
@@ -46,6 +53,14 @@ def register_apis():
     api.add_resource(FeedsApi, "/feeds")
     api.add_resource(SearchPostApi, "/search_post")
     api.add_resource(SearchUserApi, "/search_user")
+    api.add_resource(ReplyApi, "/reply/<int:id>")
+    api.add_resource(ReplyLikeApi, "/reply_like/<int:id>")
+    api.add_resource(BasketApi, "/basket", "/basket/<int:id>")
+    api.add_resource(PurchaseApi, "/purchase", "/purchase/<int:id>")
+    api.add_resource(MessageApi, "/message/<int:user_id>")
+    api.add_resource(UserDetailApi, "/user_detail/<int:user_id>")
+    api.add_resource(CategoryApi, "/category")
+    api.add_resource(HashtagScoreApi, "/hashtag_score/<int:hashtag_id>")
 
 
 # noinspection PyUnusedLocal

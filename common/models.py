@@ -48,9 +48,11 @@ class User(db.Model):
     username = db.Column(db.VARCHAR(32), unique=True)
     email = db.Column(db.VARCHAR(64), unique=True)
     password = db.Column(db.VARCHAR(64))
+    name = db.Column(db.VARCHAR(32))
     zipcode = db.Column(db.INT)
     address1 = db.Column(db.VARCHAR(128))
     address2 = db.Column(db.VARCHAR(128))
+    recent_name = db.Column(db.VARCHAR(32))
     recent_zipcode = db.Column(db.INT)
     recent_add1 = db.Column(db.VARCHAR(128))
     recent_add2 = db.Column(db.VARCHAR(128))
@@ -71,19 +73,23 @@ class User(db.Model):
     post = db.relationship("Post", backref="user", cascade="all,delete", lazy="dynamic")
     like = db.relationship("Like", backref="user", cascade="all,delete", lazy="dynamic")
     reply = db.relationship("Reply", backref="user", cascade="all,delete", lazy="dynamic")
+    basket = db.relationship("Basket", backref="user", cascade="all,delete", lazy="dynamic")
 
     def __init__(self, username, created_at, last_logged_at, profile_thumb_url, access_token="", level=0, point=0,
                  seller_level=0, is_activated=0,
-                 password=None, zipcode=None, address1=None, address2=None, recent_zipcode=None, recent_add1=None,
-                 recent_add2=None, phone=None, region=None, bank_account=None, biz_num=None, recommender_id=None,
+                 password=None, name=None, zipcode=None, address1=None, address2=None,
+                 recent_name=None, recent_zipcode=None, recent_add1=None, recent_add2=None,
+                 phone=None, region=None, bank_account=None, biz_num=None, recommender_id=None,
                  introduce=None, email=None):
         self.access_token = access_token
         self.username = username
         self.email = email
         self.password = password
+        self.name = name
         self.zipcode = zipcode
         self.address1 = address1
         self.address2 = address2
+        self.recent_name = name
         self.recent_zipcode = recent_zipcode
         self.recent_add1 = recent_add1
         self.recent_add2 = recent_add2
@@ -138,7 +144,7 @@ class Post(db.Model):
     region = db.Column(db.VARCHAR(32))
     hashtag = db.Column(db.VARCHAR(256))
     text = db.Column(db.VARCHAR(1024))
-    replys = db.Column(db.INT)
+    replies = db.Column(db.INT)
     likes = db.Column(db.INT)
     created_at = db.Column(db.DATETIME)
 
@@ -147,9 +153,10 @@ class Post(db.Model):
     reply = db.relationship("Reply", backref="post", cascade="all,delete", lazy="dynamic")
     purchase = db.relationship("Purchase", backref="post", cascade="all,delete", lazy="dynamic")
     hashtag_post = db.relationship("HashtagPost", backref="post", cascade="all,delete", lazy="dynamic")
+    basket = db.relationship("Basket", backref="post", cascade="all,delete", lazy="dynamic")
 
     def __init__(self, post_type, user_id, title, brand, product_name, origin_price, purchase_price, fee,
-                 region, text, created_at, replys=0, likes=0,
+                 region, text, created_at, replies=0, likes=0,
                  img_url1=None, img_url2=None, img_url3=None, img_url4=None, img_url5=None, hashtag=None):
         self.post_type = post_type
         self.user_id = user_id
@@ -167,7 +174,7 @@ class Post(db.Model):
         self.region = region
         self.hashtag = hashtag
         self.text = text
-        self.replys = replys
+        self.replies = replies
         self.likes = likes
         self.created_at = created_at
 
@@ -202,6 +209,8 @@ class ColorSize(db.Model):
     available = db.Column(db.INT)
     created_at = db.Column(db.DATETIME)
 
+    basket = db.relationship("Basket", backref="color_size", cascade="all,delete", lazy="dynamic")
+
     def __init__(self, post_id, name, available, created_at):
         self.post_id = post_id
         self.name = name
@@ -216,6 +225,7 @@ class Hashtag(db.Model):
     created_at = db.Column(db.DATETIME)
 
     hashtag_post = db.relationship("HashtagPost", backref="hashtag", cascade="all,delete", lazy="dynamic")
+    hashtag_score = db.relationship("HashtagScore", backref="hashtag", cascade="all,delete", lazy="dynamic")
 
     def __init__(self, name, created_at):
         self.name = name
@@ -249,6 +259,30 @@ class HashtagPost(db.Model):
         self.created_at = created_at
 
 
+class HashtagScore(db.Model):
+    id = db.Column(db.INT, primary_key=True)
+    hashtag_id = db.Column(db.ForeignKey("hashtag.id"))
+    category_id = db.Column(db.ForeignKey("category.id"))
+
+    def __init__(self, hashtag_id, category_id):
+        self.hashtag_id = hashtag_id
+        self.category_id = category_id
+
+
+class Category(db.Model):
+    id = db.Column(db.INT, primary_key=True)
+    name = db.Column(db.VARCHAR(64))
+    parent_id = db.Column(db.INT)
+    depth = db.Column(db.INT)
+
+    hashtag_score = db.relationship("HashtagScore", backref="category", cascade="all,delete", lazy="dynamic")
+
+    def __init__(self, name, parent_id, depth):
+        self.name = name
+        self.parent_id = parent_id
+        self.depth = depth
+
+
 class Follow(db.Model):
     id = db.Column(db.INT, primary_key=True)
     follower_id = db.Column(db.ForeignKey("user.id"))
@@ -278,16 +312,22 @@ class Reply(db.Model):
     user_id = db.Column(db.ForeignKey("user.id"))
     post_id = db.Column(db.ForeignKey("post.id"))
     parent_id = db.Column(db.INT)
+    depth = db.Column(db.INT)
     text = db.Column(db.VARCHAR(512))
+    likes = db.Column(db.INT)
+    replies = db.Column(db.INT)
     created_at = db.Column(db.DATETIME)
 
     replyLike = db.relationship("ReplyLike", backref="reply", cascade="all,delete", lazy="dynamic")
 
-    def __init__(self, user_id, post_id, text, created_at, parent_id=0):
+    def __init__(self, user_id, post_id, text, created_at, parent_id=0, depth=0):
         self.user_id = user_id
         self.post_id = post_id
         self.parent_id = parent_id
+        self.depth = depth
         self.text = text
+        self.likes = 0
+        self.replies = 0
         self.created_at = created_at
 
     @hybrid_property
@@ -317,11 +357,12 @@ class Purchase(db.Model):
     post_id = db.Column(db.ForeignKey("post.id"))
     seller_id = db.Column(db.ForeignKey("user.id"))
     buyer_id = db.Column(db.ForeignKey("user.id"))
-    color_size_id = db.Column(db.ForeignKey("colorSize.id"))
+    color_size_id = db.Column(db.ForeignKey("color_size.id"))
     amount = db.Column(db.INT)
     price = db.Column(db.INT)
     payment = db.Column(db.INT) # 0:카드 1:계좌이체 2:휴대폰결제
     zipcode = db.Column(db.INT)
+    name = db.Column(db.VARCHAR(32))
     address1 = db.Column(db.VARCHAR(128))
     address2 = db.Column(db.VARCHAR(128))
     phone = db.Column(db.VARCHAR(16))
@@ -330,8 +371,8 @@ class Purchase(db.Model):
     delivery_number = db.Column(db.VARCHAR(32))
     created_at = db.Column(db.DATETIME)
 
-    def __init__(self, post_id, seller_id, buyer_id, color_size_id, amount, price, payment, zipcode, address1, address2,
-                 phone, creaetd_at, comment=None, delivery_code=None, delivery_number=None):
+    def __init__(self, post_id, seller_id, buyer_id, color_size_id, amount, price, payment, name, zipcode, address1,
+                 address2, phone, creaetd_at, comment=None, delivery_code=None, delivery_number=None):
         self.post_id = post_id
         self.seller_id = seller_id
         self.buyer_id = buyer_id
@@ -339,6 +380,7 @@ class Purchase(db.Model):
         self.amount = amount
         self.price = price
         self.payment = payment
+        self.name = name
         self.zipcode = zipcode
         self.address1 = address1
         self.address2 = address2
@@ -353,7 +395,7 @@ class Basket(db.Model):
     id = db.Column(db.INT, primary_key=True)
     user_id = db.Column(db.ForeignKey("user.id"))
     post_id = db.Column(db.ForeignKey("post.id"))
-    color_size_id = db.Column(db.ForeignKey("colorsize.id"))
+    color_size_id = db.Column(db.ForeignKey("color_size.id"))
     amount = db.Column(db.INT)
     created_at = db.Column(db.DATETIME)
 
@@ -374,4 +416,21 @@ class Wish(db.Model):
     def __init__(self, user_id, post_id, created_at):
         self.user_id = user_id
         self.post_id = post_id
+        self.created_at = created_at
+
+
+class Message(db.Model):
+    id = db.Column(db.INT, primary_key=True)
+    sender_id = db.Column(db.ForeignKey("user.id"))
+    reciever_id = db.Column(db.ForeignKey("user.id"))
+    message = db.Column(db.VARCHAR(512))
+    created_at = db.Column(db.DATETIME)
+
+    sender = db.relationship("User", foreign_keys=[sender_id])
+    reciever = db.relationship("User", foreign_keys=[reciever_id])
+
+    def __init__(self, sender_id, reciever_id, message, created_at):
+        self.sender_id = sender_id
+        self.reciever_id = reciever_id
+        self.message = message
         self.created_at = created_at

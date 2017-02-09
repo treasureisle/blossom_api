@@ -41,6 +41,9 @@ USER_PROFILE_HEIGHT_NORMAL = 200
 # 포스트 페이징 수
 POST_ROW = 20
 
+# 메세지 페이징 수
+MESSAGE_ROW = 20
+
 # 유저 프로필에 나오는 포스트 페이지당 갯수
 USER_POST_ROW = 20
 

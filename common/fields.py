@@ -23,6 +23,32 @@ user_fields = {
     "is_me": fields.Boolean
 }
 
+user_detail_fields = {
+    "id": fields.Integer,
+    "username": fields.String,
+    "email": fields.String,
+    "name": fields.String,
+    "zipcode": fields.Integer,
+    "address1": fields.String,
+    "address2": fields.String,
+    "recent_name": fields.String,
+    "recent_zipcode": fields.String,
+    "recent_add1": fields.String,
+    "recent_add2": fields.String,
+    "phone": fields.String,
+    "level": fields.Integer,
+    "point": fields.Integer,
+    "region": fields.String,
+    "seller_level": fields.String,
+    "bank_account": fields.String,
+    "biz_num": fields.String,
+    "recommender_id": fields.Integer,
+    "profile_thumb_url": fields.String,
+    "last_logged_at": fields.DateTime,
+    "introduce": fields.String,
+    "created_at": fields.DateTime,
+}
+
 post_field = {
     "id": fields.Integer,
     "post_type": fields.Integer,
@@ -49,12 +75,13 @@ post_field = {
 reply_field = {
     "id": fields.Integer,
     "user": fields.Nested(user_fields),
-    "post_id": fields.Integer,
+    "post": fields.Nested(post_field),
     "parent_id": fields.Integer,
+    "depth": fields.Integer,
     "text": fields.String,
     "likes": fields.Integer,
-    "replys": fields.Integer,
-    "created_at": fields.datetime,
+    "replies": fields.Integer,
+    "created_at": fields.DateTime,
     "is_liked": fields.Boolean
 }
 
@@ -73,12 +100,14 @@ hashtag_field = {
 
 purchase_field = {
     "id": fields.Integer,
+    "post": fields.Nested(post_field),
     "seller": fields.Nested(user_fields),
     "buyer": fields.Nested(user_fields),
     "color_size": fields.Nested(color_size_field),
     "amount": fields.Integer,
     "price": fields.Integer,
     "payment": fields.Integer,
+    "name": fields.String,
     "zipcode": fields.Integer,
     "address1": fields.String,
     "address2": fields.String,
@@ -86,7 +115,7 @@ purchase_field = {
     "comment": fields.String,
     "delivery_code": fields.Integer,
     "delivery_number": fields.String,
-    "created_at": fields.datetime
+    "created_at": fields.DateTime
 }
 
 basket_field = {
@@ -112,4 +141,19 @@ follower_field = {
 follow_wrapper = {
     "followings": fields.List(fields.Nested(follower_field)),
     "followers": fields.List(fields.Nested(follower_field))
+}
+
+message_field = {
+    "id": fields.Integer,
+    "sender": fields.Nested(user_fields),
+    "reciever": fields.Nested(user_fields),
+    "message": fields.String,
+    "created_at": fields.DateTime
+}
+
+category_field = {
+    "id": fields.Integer,
+    "name": fields.String,
+    "parent_id": fields.Integer,
+    "depth": fields.Integer
 }

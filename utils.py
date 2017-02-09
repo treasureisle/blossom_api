@@ -155,7 +155,6 @@ def api_login_required(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
         if not current_user.is_authenticated:
-            print "what?"
             raise Forbidden
         return func(*args, **kwargs)
 

@@ -37,6 +37,18 @@ class PostNotFound(HTTPException):
     pass
 
 
+class ReplyNotFound(HTTPException):
+    pass
+
+
+class BasketNotFound(HTTPException):
+    pass
+
+
+class PurchaseNotFound(HTTPException):
+    pass
+
+
 class UserNotFound(HTTPException):
     pass
 
@@ -93,37 +105,22 @@ class NotAllowedSearchType(HTTPException):
     pass
 
 
-class TopicNotFound(HTTPException):
-    pass
-
-
-class TopicIdRequired(HTTPException):
-    pass
-
-
-class VoteEnded(HTTPException):
-    pass
-
-
 class PasswordTooShort(HTTPException):
     pass
+
 
 class FollowNotFound(HTTPException):
     pass
 
+
 class InternalServerError(HTTPException):
     pass
-
 
 # message 는 소문자로 시작, 마침표를 찍지 않는다.
 errors = {
     "AlreadyVoted": {
         "message": "already voted",
         "status": 409
-    },
-    "NextTopicNotFound": {
-        "message": "next topic not exist",
-        "status": 404
     },
     "Forbidden": {
         "message": "forbidden",
@@ -157,17 +154,21 @@ errors = {
         "message": "post not found",
         "status": 404
     },
+    "ReplyNotFound": {
+        "message": "reply not found",
+        "status": 404
+    },
+    "PurchaseNotFound": {
+        "message": "purchase not found",
+        "status": 404
+    },
+    "BaksetNotFound": {
+        "message": "basket not found",
+        "status": 404
+    },
     "ForbiddenException": {
         "message": "forbidden",
         "status": 403,
-    },
-    "TopicTooLong": {
-        "message": "topic is too long",
-        "status": 400
-    },
-    "TopicTooShort": {
-        "message": "topic is too short",
-        "status": 400
     },
     "NotValidAccessToken": {
         "message": "access token is not valid",
@@ -216,18 +217,6 @@ errors = {
     "NotAllowedSearchType": {
         "message": "not allowed search type",
         "status": 400
-    },
-    "TopicNotFound": {
-        "message": "topic not found",
-        "status": 404
-    },
-    "TopicIdRequired": {
-        "message": "topic id required",
-        "status": 400
-    },
-    "VoteEnded": {
-        "message": "vote next topic is ended",
-        "status": 406
     },
     "NotAllowedOrderType": {
         "message": "not allowed order type",
