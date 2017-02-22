@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
 
+import sys
+
 from flask import Flask
 from common.mods import db
 from common.api_errors import errors
@@ -81,6 +83,9 @@ def init_login():
         if user is not None and bcrypt.check_password_hash(user.access_token, access_token):
             return user
         return None
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 app.config.from_pyfile("configs.py")
