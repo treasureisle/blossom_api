@@ -223,6 +223,7 @@ class Hashtag(db.Model):
     name = db.Column(db.VARCHAR(32))
     number = db.Column(db.INT)
     created_at = db.Column(db.DATETIME)
+    hidden = db.Column(db.INT)
 
     hashtag_post = db.relationship("HashtagPost", backref="hashtag", cascade="all,delete", lazy="dynamic")
     hashtag_score = db.relationship("HashtagScore", backref="hashtag", cascade="all,delete", lazy="dynamic")
@@ -231,6 +232,7 @@ class Hashtag(db.Model):
         self.name = name
         self.number = 0
         self.created_at = created_at
+        self.hidden = 0
 
     @hybrid_property
     def score(self):

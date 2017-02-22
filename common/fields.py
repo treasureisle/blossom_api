@@ -95,7 +95,8 @@ color_size_field = {
 hashtag_field = {
     "id": fields.Integer,
     "name": fields.String,
-    "number": fields.Integer
+    "number": fields.Integer,
+    "hidden": fields.Integer
 }
 
 purchase_field = {

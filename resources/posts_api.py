@@ -46,7 +46,6 @@ ORDER_SCORE = "score"
 POST_TYPE_SELL = "sell"
 POST_TYPE_BUY = "buy"
 POST_TYPE_REVIEW = "review"
-POST_TYPE_STORE = "store"
 
 LOCATION_FORM = "form"
 LOCATION_FILE = "files"
@@ -83,14 +82,12 @@ class PostsApi(Resource):
         page = int(request.args.get(KEY_PAGE, default=1))
         order = request.args.get(KEY_ORDER, default=ORDER_SCORE)
 
-        post_type_code = 0
+        post_type_code = 1
 
         if post_type == POST_TYPE_BUY:
             post_type_code = 1
         elif post_type == POST_TYPE_REVIEW:
             post_type_code = 2
-        elif post_type == POST_TYPE_STORE:
-            post_type_code = 3
 
         if order == ORDER_SCORE:
             posts = Post.query.filter(Post.post_type == post_type_code).order_by(Post.score.desc()).\
