@@ -82,7 +82,7 @@ class PostsApi(Resource):
         page = int(request.args.get(KEY_PAGE, default=1))
         order = request.args.get(KEY_ORDER, default=ORDER_SCORE)
 
-        post_type_code = 1
+        post_type_code = 0
 
         if post_type == POST_TYPE_BUY:
             post_type_code = 1
