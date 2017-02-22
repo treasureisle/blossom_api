@@ -129,7 +129,7 @@ def python_str_time_to_python_time(python_str_time):
 
 
 def get_default_profile_thumb_url(app):
-    return "%s/imgs/default_person.png" % app.config[KEY_CDN_URL]
+    return "%s/profiles/default_person.png" % app.config[KEY_CDN_URL]
 
 
 def generate_client_access_token(id):
