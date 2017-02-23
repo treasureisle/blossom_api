@@ -18,14 +18,14 @@ class LikeApi(Resource):
     @api_login_required
     def post(self, id):
 
-        like = Like.query.filter(Like.user_id==current_user.id).filter(Like.post_id == id).first()
         post = Post.query.filter(Post.id == id).first()
-
-        if like is not None:
-            raise AlreadyVoted
+        like = Like.query.filter(Like.user_id==current_user.id).filter(Like.post_id == id).first()
 
         if post is None:
             raise PostNotFound
+
+        if like is not None:
+            raise AlreadyVoted
 
         like = Like(user_id=current_user.id, post_id=id, created_at=get_now_mysql_datetime())
         post.likes += 1
@@ -38,15 +38,14 @@ class LikeApi(Resource):
 
     @api_login_required
     def delete(self, id):
-        like = Like.query.filter(Like.id == id).first()
-
-        if like is None:
-            raise MyVoteNotFound
-
-        post = Post.query.filter(Post.id == like.post_id).first()
+        post = Post.query.filter(Post.id == id).first()
+        like = Like.query.filter(Like.user_id==current_user.id).filter(Like.post_id == id).first()
 
         if post is None:
             raise PostNotFound
+
+        if like is None:
+            raise MyVoteNotFound
 
         if like.user_id != current_user.id:
             raise Forbidden
