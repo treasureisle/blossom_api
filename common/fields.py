@@ -39,7 +39,7 @@ user_detail_fields = {
     "level": fields.Integer,
     "point": fields.Integer,
     "region": fields.String,
-    "seller_level": fields.String,
+    "seller_level": fields.Integer,
     "bank_account": fields.String,
     "biz_num": fields.String,
     "recommender_id": fields.Integer,
@@ -47,6 +47,7 @@ user_detail_fields = {
     "last_logged_at": fields.DateTime,
     "introduce": fields.String,
     "created_at": fields.DateTime,
+    "is_me": fields.Boolean
 }
 
 post_field = {
