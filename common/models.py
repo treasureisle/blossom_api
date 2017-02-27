@@ -436,3 +436,43 @@ class Message(db.Model):
         self.reciever_id = reciever_id
         self.message = message
         self.created_at = created_at
+
+
+class Store(db.Model):
+    id = db.Column(db.INT, primary_key=True)
+    num_events = db.Column(db.INT)
+    event1_hashtag_id = db.Column(db.INT)
+    event1_img_url = db.Column(db.String)
+    event2_hashtag_id = db.Column(db.INT)
+    event2_img_url = db.Column(db.String)
+    event3_hashtag_id = db.Column(db.INT)
+    event3_img_url = db.Column(db.String)
+    event4_hashtag_id = db.Column(db.INT)
+    event4_img_url = db.Column(db.String)
+    event5_hashtag_id = db.Column(db.INT)
+    event5_img_url = db.Column(db.String)
+    seller_id = db.Column(db.INT)
+    today_seller_title = db.Column(db.String)
+    editors_pick_hashtag_id = db.Column(db.INT)
+    editors_pick_title = db.Column(db.String)
+
+    def __init__(self, num_events, seller_id, today_seller_title, editors_pick_hashtag_id,
+                 editors_pick_title, event1_hashtag_id, event1_img_url, event2_hashtag_id=None, event2_img_url=None,
+                 event3_hashtag_id=None, event3_img_url=None, event4_hashtag_id=None, event4_img_url=None,
+                 event5_hashtag_id=None, event5_img_url=None):
+        self.num_events = num_events
+        self.event1_hashtag_id = event1_hashtag_id
+        self.event1_img_url = event1_img_url
+        self.event2_hashtag_id = event2_hashtag_id
+        self.event2_img_url = event2_img_url
+        self.event3_hashtag_id = event3_hashtag_id
+        self.event3_img_url = event3_img_url
+        self.event4_hashtag_id = event4_hashtag_id
+        self.event4_img_url = event4_img_url
+        self.event5_hashtag_id = event5_hashtag_id
+        self.event5_img_url = event5_img_url
+        self.seller_id = seller_id
+        self.today_seller_title = today_seller_title
+        self.editors_pick_hashtag_id = editors_pick_hashtag_id
+        self.editors_pick_title = editors_pick_title
+

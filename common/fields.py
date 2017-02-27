@@ -159,3 +159,22 @@ category_field = {
     "parent_id": fields.Integer,
     "depth": fields.Integer
 }
+
+store_field = {
+    "id": fields.Integer,
+    "num_events": fields.Integer,
+    "event1_hashtag_id": fields.Integer,
+    "event1_img_url": fields.String,
+    "event2_hashtag_id": fields.Integer,
+    "event2_img_url": fields.String,
+    "event3_hashtag_id": fields.Integer,
+    "event3_img_url": fields.String,
+    "event4_hashtag_id": fields.Integer,
+    "event4_img_url": fields.String,
+    "event5_hashtag_id": fields.Integer,
+    "event5_img_url": fields.String,
+    "seller_id": fields.Integer,
+    "today_seller_title": fields.String,
+    "editors_pick_hashtag_id": fields.Integer,
+    "editors_pick_title": fields.String
+}
