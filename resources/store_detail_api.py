@@ -19,8 +19,6 @@ KEY_ORDER = "order"
 KEY_ROW = "row"
 KEY_PAGE = "page"
 
-ORDER_SCORE = "score"
-
 
 class StoreDetailApi(Resource):
     @marshal_with(post_field, envelope="posts")
@@ -28,7 +26,6 @@ class StoreDetailApi(Resource):
 
         row = int(request.args.get(KEY_ROW, default=POST_ROW))
         page = int(request.args.get(KEY_PAGE, default=1))
-        # order = request.args.get(KEY_ORDER, default=ORDER_SCORE)
 
         post_type_code = 1
 

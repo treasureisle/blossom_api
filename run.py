@@ -64,7 +64,7 @@ def register_apis():
     api.add_resource(MessageApi, "/message/<int:user_id>")
     api.add_resource(UserDetailApi, "/user_detail/<int:user_id>")
     api.add_resource(CategoryApi, "/category")
-    api.add_resource(HashtagScoreApi, "/hashtag_score/<int:hashtag_id>")
+    api.add_resource(HashtagScoreApi, "/hashtag_score/<int:id>")
     api.add_resource(StoreApi, "/store")
     api.add_resource(StoreDetailApi, "/store_detail/<int:hashtag_id>")
 

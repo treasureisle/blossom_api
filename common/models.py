@@ -265,10 +265,12 @@ class HashtagScore(db.Model):
     id = db.Column(db.INT, primary_key=True)
     hashtag_id = db.Column(db.ForeignKey("hashtag.id"))
     category_id = db.Column(db.ForeignKey("category.id"))
+    score = db.Column(db.INT)
 
     def __init__(self, hashtag_id, category_id):
         self.hashtag_id = hashtag_id
         self.category_id = category_id
+        self.score = 0
 
 
 class Category(db.Model):

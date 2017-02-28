@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 
-from flask.ext.restful import Resource, reqparse
+from flask.ext.restful import Resource, reqparse, marshal_with
 
 from common.mods import db
-from common.models import HashtagScore, Category
+from common.models import HashtagScore, Category, Hashtag
 from common.api_errors import InternalServerError
+from common.fields import hashtag_field
 
 __author__ = "Philgyu,Seong"
 __email__ = "philgyu.seong@gluvi.co"
@@ -19,7 +20,21 @@ class HashtagScoreApi(Resource):
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(KEY_CATEGORY_ID, location=LOCATION_FORM)
 
-    def post(self, hashtag_id):
+    @marshal_with(hashtag_field, envelope="hashtags")
+    def get(self, id):
+        category_id = id
+
+        hashtag_scores = HashtagScore.query.filter(HashtagScore.category_id == category_id).\
+            order_by(HashtagScore.score).limit(3).all()
+
+        hashtag_ids = [hashtag_score.hashtag_id for hashtag_score in hashtag_scores]
+
+        hashtags = Hashtag.query.filter(Hashtag.id.in_(hashtag_ids)).all()
+
+        return hashtags
+
+    def post(self, id):
+        hashtag_id = id
         args = self.post_parser.parse_args()
         category_id = args[KEY_CATEGORY_ID]
 
