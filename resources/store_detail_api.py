@@ -27,12 +27,10 @@ class StoreDetailApi(Resource):
         row = int(request.args.get(KEY_ROW, default=POST_ROW))
         page = int(request.args.get(KEY_PAGE, default=1))
 
-        post_type_code = 1
-
         hashtag_posts = HashtagPost.query.filter(HashtagPost.hashtag_id == hashtag_id).all()
         post_ids = [hashtag_post.post_id for hashtag_post in hashtag_posts]
 
-        result = Post.query.filter(Post.id.in_(post_ids)).filter(Post.post_type == post_type_code).\
+        result = Post.query.filter(Post.id.in_(post_ids)).\
             order_by(Post.score.desc()).offset(get_page_offset(page, row)).limit(row).all()
 
         if result is None:

@@ -22,7 +22,6 @@ ORDER_SCORE = "score"
 POST_TYPE_SELL = "sell"
 POST_TYPE_BUY = "buy"
 POST_TYPE_REVIEW = "review"
-POST_TYPE_STORE = "store"
 
 
 class UserPostsApi(Resource):
@@ -40,8 +39,6 @@ class UserPostsApi(Resource):
             post_type_code = 1
         elif post_type == POST_TYPE_REVIEW:
             post_type_code = 2
-        elif post_type == POST_TYPE_STORE:
-            post_type_code = 3
 
         if post_type == 0:
             posts = Post.query.filter(Post.user_id == user_id).order_by(Post.score.desc()).\
