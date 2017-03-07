@@ -68,7 +68,7 @@ post_field = {
     "region": fields.String,
     "hashtag": fields.String,
     "text": fields.String,
-    "replys": fields.Integer,
+    "replies": fields.Integer,
     "likes": fields.Integer,
     "is_liked": fields.Boolean
 }
