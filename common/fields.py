@@ -35,6 +35,7 @@ user_detail_fields = {
     "recent_zipcode": fields.String,
     "recent_add1": fields.String,
     "recent_add2": fields.String,
+    "recent_phone": fields.String,
     "phone": fields.String,
     "level": fields.Integer,
     "point": fields.Integer,

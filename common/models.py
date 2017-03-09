@@ -56,6 +56,7 @@ class User(db.Model):
     recent_zipcode = db.Column(db.INT)
     recent_add1 = db.Column(db.VARCHAR(128))
     recent_add2 = db.Column(db.VARCHAR(128))
+    recent_phone = db.Column(db.VARCHAR(16))
     phone = db.Column(db.VARCHAR(16))
     level = db.Column(db.INT)
     point = db.Column(db.INT)
@@ -78,7 +79,7 @@ class User(db.Model):
     def __init__(self, username, created_at, last_logged_at, profile_thumb_url, access_token="", level=0, point=0,
                  seller_level=0, is_activated=0,
                  password=None, name=None, zipcode=None, address1=None, address2=None,
-                 recent_name=None, recent_zipcode=None, recent_add1=None, recent_add2=None,
+                 recent_name=None, recent_zipcode=None, recent_add1=None, recent_add2=None, recent_phone=None,
                  phone=None, region=None, bank_account=None, biz_num=None, recommender_id=None,
                  introduce=None, email=None):
         self.access_token = access_token
@@ -93,6 +94,8 @@ class User(db.Model):
         self.recent_zipcode = recent_zipcode
         self.recent_add1 = recent_add1
         self.recent_add2 = recent_add2
+        self.recent_name = recent_name
+        self.recent_phone = recent_phone
         self.phone = phone
         self.level = level
         self.point = point
