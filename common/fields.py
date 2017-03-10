@@ -43,6 +43,7 @@ user_detail_fields = {
     "seller_level": fields.Integer,
     "bank_account": fields.String,
     "biz_num": fields.String,
+    "biz_name": fields.String,
     "recommender_id": fields.Integer,
     "profile_thumb_url": fields.String,
     "last_logged_at": fields.DateTime,
