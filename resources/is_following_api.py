@@ -5,6 +5,7 @@ from flask.ext.login import current_user
 
 from common.api_errors import UserNotFound, FollowNotFound
 from common.models import User, Follow
+from common.fields import user_fields
 from utils import api_login_required
 
 __author__ = "Philgyu,Seong"
@@ -15,7 +16,7 @@ KEY_FOLLOWING = "following"
 
 class IsFollowingApi(Resource):
     @api_login_required
-    @marshal_with(User, "user")
+    @marshal_with(user_fields, "user")
     def get(self, user_id):
         user = User.query.filter(User.id == user_id).first()
 
