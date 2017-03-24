@@ -41,6 +41,7 @@ class FollowApi(Resource):
         return follow
 
     @api_login_required
+    @marshal_with(follower_field, envelope="follow")
     def delete(self, id):
         follow = Follow.query.filter(Follow.follower_id == current_user.id).filter(Follow.following_id == id).first()
 
@@ -50,4 +51,4 @@ class FollowApi(Resource):
         db.session.delete(follow)
         db.session.commit()
 
-        return
+        return follow
