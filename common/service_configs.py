@@ -15,7 +15,7 @@ SENDGRID_FORGOT_PASSWORD_API_KEY = "SG.h22PBmDSTUSNaR1NjmjJVA.PdrCnYyJHYx-M4xIpj
 # sqlalchemy 버전업 되면서 워닝 제거
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-TEST_USER_USERNAME = "testuser2"
+TEST_USER_USERNAME = "test@treasureisle.co"
 TEST_USER_PASSWORD = "qqqqqqqq"
 
 # 최소 유저네임 길이

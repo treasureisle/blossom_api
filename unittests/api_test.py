@@ -17,11 +17,11 @@ class ApiTestCase(BaseTestCase):
         self.assert_login()
 
     def assert_login(self):
-        self.test_user = User.query.filter(User.username == TEST_USER_USERNAME).first()
+        self.test_user = User.query.filter(User.email == TEST_USER_USERNAME).first()
 
         self.assertIsNotNone(self.test_user)
         data = {
-            "email": self.test_user.email,
+            "email": TEST_USER_USERNAME,
             "password": TEST_USER_PASSWORD
         }
 
