@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from flask.ext.restful import Resource
+from flask.ext.restful import Resource, marshal_with
 from flask.ext.login import current_user
 
 from common.api_errors import UserNotFound, FollowNotFound
@@ -15,6 +15,7 @@ KEY_FOLLOWING = "following"
 
 class IsFollowingApi(Resource):
     @api_login_required
+    @marshal_with(User, "user")
     def get(self, user_id):
         user = User.query.filter(User.id == user_id).first()
 
@@ -27,4 +28,4 @@ class IsFollowingApi(Resource):
         if follow is None:
             raise FollowNotFound
 
-        return user.id
+        return user
