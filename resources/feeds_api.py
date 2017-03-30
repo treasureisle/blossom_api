@@ -27,9 +27,9 @@ class FeedsApi(Resource):
     @api_login_required
     @marshal_with(post_field, envelope="posts")
     def get(self):
-        def get_following(user_id, offset=None, limit=None):
+        def get_following(user_id):
             following = User.query.filter(Follow.follower_id == user_id).filter(User.id == Follow.following_id).\
-                order_by(Follow.id.desc()).offset(offset).limit(limit).all()
+                order_by(Follow.id.desc()).all()
 
             return following
 

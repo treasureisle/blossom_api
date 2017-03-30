@@ -30,6 +30,7 @@ class SearchPostApi(Resource):
 
         search_type = args[KEY_SEARCH_TYPE]
         keyword = args[KEY_KEYWORD]
+        print("search type: %s" % search_type)
 
         if search_type == KEY_SEARCH_TYPE_TITLE:
             words = keyword.split()
