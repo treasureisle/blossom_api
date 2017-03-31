@@ -44,7 +44,7 @@ class FollowApi(Resource):
     @api_login_required
     def delete(self, id):
         follow = Follow.query.filter(Follow.follower_id == current_user.id).filter(Follow.following_id == id).first()
-        user = User.query.filter(User.i == Follow.following_id).first()
+        user = User.query.filter(User.id == Follow.following_id).first()
 
         if follow is None:
             raise FollowNotFound
