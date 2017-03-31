@@ -55,7 +55,6 @@ class ColorSizeApi(Resource):
 
         return color_sizes
 
-    @marshal_with(color_size_field, envelope="color_sizes")
     @api_login_required
     def post(self, post_id):
 
@@ -83,5 +82,5 @@ class ColorSizeApi(Resource):
 
         db.session.commit()
 
-        return new_color_size
+        return {}
 

@@ -34,7 +34,7 @@ class LikeApi(Resource):
         db.session.merge(post)
         db.session.commit()
 
-        return ""
+        return {}
 
     @api_login_required
     def delete(self, id):
@@ -56,4 +56,4 @@ class LikeApi(Resource):
         db.session.merge(post)
         db.session.commit()
 
-        return ""
+        return {}

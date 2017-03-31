@@ -4,9 +4,9 @@ from flask.ext.restful import Resource, marshal_with, reqparse
 from flask.ext.login import current_user
 
 from common.mods import db
-from common.fields import basket_field, user_fields
+from common.fields import basket_field
 from common.api_errors import PostNotFound, BasketNotFound, Forbidden
-from common.models import Post, Basket, User
+from common.models import Post, Basket
 from utils import api_login_required, get_now_mysql_datetime
 
 __author__ = "Philgyu,Seong"
@@ -33,7 +33,6 @@ class BasketApi(Resource):
 
         return basket
 
-    @marshal_with(basket_field, "basket")
     @api_login_required
     def post(self, id):
         post_id = id
@@ -53,9 +52,8 @@ class BasketApi(Resource):
         db.session.add(new_basket)
         db.session.commit()
 
-        return new_basket
+        return {}
 
-    @marshal_with(user_fields, envelope="user")
     @api_login_required
     def delete(self, id):
         basket_id = id
@@ -68,6 +66,4 @@ class BasketApi(Resource):
         db.session.delete(basket)
         db.session.commit()
 
-        user = User.query.filter(User.id == current_user.id).first()
-
-        return user
+        return {}

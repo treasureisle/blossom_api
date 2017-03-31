@@ -40,7 +40,7 @@ class HashtagScoreApi(Resource):
 
         self.recognize_score(hashtag_id, category_id)
 
-        return ""
+        return {}
 
     def recognize_score(self, hashtag_id, category_id):
         category = Category.query.filter(Category.id == category_id).first()
@@ -62,6 +62,6 @@ class HashtagScoreApi(Resource):
         if category.parent_id != 0:
             self.recognize_score(hashtag_id, category.parent_id)
 
-        return ""
+        return {}
 
 

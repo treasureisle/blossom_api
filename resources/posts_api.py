@@ -231,7 +231,7 @@ class PostsApi(Resource):
         db.session.delete(post)
         db.session.commit()
 
-        return post_id
+        return {}
 
 
     def make_image_filename(self, post_id, number):

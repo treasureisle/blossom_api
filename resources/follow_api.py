@@ -26,7 +26,6 @@ class FollowApi(Resource):
 
         return follow_wrapper
 
-    @marshal_with(follower_field, envelope="follow")
     @api_login_required
     def post(self, id):
         following = User.query.filter(User.id == id).first()
@@ -38,13 +37,11 @@ class FollowApi(Resource):
         db.session.add(follow)
         db.session.commit()
 
-        return follow
+        return {}
 
-    @marshal_with(user_fields, envelope="user")
     @api_login_required
     def delete(self, id):
         follow = Follow.query.filter(Follow.follower_id == current_user.id).filter(Follow.following_id == id).first()
-        user = User.query.filter(User.id == Follow.following_id).first()
 
         if follow is None:
             raise FollowNotFound
@@ -52,4 +49,4 @@ class FollowApi(Resource):
         db.session.delete(follow)
         db.session.commit()
 
-        return user
+        return {}

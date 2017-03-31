@@ -61,4 +61,4 @@ class MessageApi(Resource):
         db.session.add(new_message)
         db.session.commit()
 
-        return ""
+        return {}
