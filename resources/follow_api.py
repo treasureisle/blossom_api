@@ -4,7 +4,7 @@ from flask.ext.restful import Resource, marshal_with
 from flask.ext.login import current_user
 
 from common.api_errors import UserNotFound, FollowNotFound
-from common.fields import follow_wrapper
+from common.fields import follow_wrapper, user_fields, follower_field
 from common.models import Follow, User
 from common.mods import db
 from utils import api_login_required, get_now_mysql_datetime
@@ -26,6 +26,7 @@ class FollowApi(Resource):
 
         return follow_wrapper
 
+    @marshal_with(follower_field, envelope="follow")
     @api_login_required
     def post(self, id):
         following = User.query.filter(User.id == id).first()
@@ -37,11 +38,13 @@ class FollowApi(Resource):
         db.session.add(follow)
         db.session.commit()
 
-        return
+        return follow
 
+    @marshal_with(user_fields, envelope="user")
     @api_login_required
     def delete(self, id):
         follow = Follow.query.filter(Follow.follower_id == current_user.id).filter(Follow.following_id == id).first()
+        user = User.query.filter(User.i == Follow.following_id).first()
 
         if follow is None:
             raise FollowNotFound
@@ -49,4 +52,4 @@ class FollowApi(Resource):
         db.session.delete(follow)
         db.session.commit()
 
-        return
+        return user
