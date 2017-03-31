@@ -29,4 +29,4 @@ class IsFollowingApi(Resource):
         if follow is None:
             raise FollowNotFound
 
-        return "{}"
+        return {}
