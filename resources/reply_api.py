@@ -77,7 +77,7 @@ class ReplyApi(Resource):
         db.session.merge(post)
         db.session.commit()
 
-        return 1
+        return ""
 
     @api_login_required
     def delete(self, id):
@@ -97,4 +97,4 @@ class ReplyApi(Resource):
         db.session.merge(post)
         db.session.commit()
 
-        return
+        return ""

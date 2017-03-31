@@ -41,6 +41,7 @@ class HashtagApi(Resource):
 
         return hashtags
 
+    @marshal_with(hashtag_field, envelope="hashtag")
     @api_login_required
     def post(self, post_id):
         args = self.post_parser.parse_args()
@@ -86,5 +87,5 @@ class HashtagApi(Resource):
 
         db.session.commit()
 
-        return count
+        return hashtag
 

@@ -32,4 +32,4 @@ class SessionApi(Resource):
         if not bcrypt.check_password_hash(user.access_token, access_token):
             raise NotValidAccessToken
 
-        return
+        return ""

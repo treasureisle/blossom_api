@@ -77,7 +77,7 @@ class PurchaseApi(Resource):
         db.session.add(new_purchase)
         db.session.commint()
 
-        return
+        return ""
 
     @api_login_required
     def delete(self, id):
@@ -91,4 +91,4 @@ class PurchaseApi(Resource):
         db.session.delete(purchase)
         db.session.commit()
 
-        return
+        return ""

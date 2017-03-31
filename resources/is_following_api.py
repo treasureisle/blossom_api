@@ -15,7 +15,7 @@ KEY_FOLLOWING = "following"
 
 
 class IsFollowingApi(Resource):
-    @marshal_with(follower_field, envelope="follow")
+    # @marshal_with(follower_field, envelope="follow")
     @api_login_required
     def get(self, user_id):
         user = User.query.filter(User.id == user_id).first()
@@ -29,4 +29,4 @@ class IsFollowingApi(Resource):
         if follow is None:
             raise FollowNotFound
 
-        return follow
+        return ""
