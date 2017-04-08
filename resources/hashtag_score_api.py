@@ -25,7 +25,7 @@ class HashtagScoreApi(Resource):
         category_id = id
 
         hashtag_scores = HashtagScore.query.filter(HashtagScore.category_id == category_id).\
-            order_by(HashtagScore.score).limit(3).all()
+            order_by(HashtagScore.score.desc()).limit(3).all()
 
         hashtag_ids = [hashtag_score.hashtag_id for hashtag_score in hashtag_scores]
 
