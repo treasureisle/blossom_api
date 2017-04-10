@@ -51,7 +51,7 @@ class ReplyApi(Resource):
             raise PostNotFound
 
         text = args[KEY_TEXT]
-        parent_id = args[KEY_PARENT_ID]
+        parent_id = int(args[KEY_PARENT_ID])
 
         if parent_id is None:
             parent_id = 0
@@ -61,9 +61,6 @@ class ReplyApi(Resource):
             if parent is None:
                 raise ReplyNotFound
             depth = parent.depth + 1
-
-        print "userId: %d, postId: %d, text: %s, parent_id: %d, depth: %d" % (current_user.id, post_id, text, parent_id,
-                                                                              depth)
 
         new_reply = Reply(user_id=current_user.id, post_id=post_id, text=text, created_at=get_now_mysql_datetime(),
                           parent_id=parent_id, depth=depth)
