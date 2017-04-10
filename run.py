@@ -33,6 +33,7 @@ from resources.category_api import CategoryApi
 from resources.hashtag_score_api import HashtagScoreApi
 from resources.store_api import StoreApi
 from resources.store_detail_api import StoreDetailApi
+from resources.reply_detail_api import ReplyDetailApi
 
 from common.mods import api, bcrypt, login_manager
 
@@ -67,6 +68,7 @@ def register_apis():
     api.add_resource(HashtagScoreApi, "/hashtag_score/<int:id>")
     api.add_resource(StoreApi, "/store")
     api.add_resource(StoreDetailApi, "/store_detail/<int:hashtag_id>")
+    api.add_resource(ReplyDetailApi, "/reply_detail/<int:id>/<int:parent_id>")
 
 
 # noinspection PyUnusedLocal
