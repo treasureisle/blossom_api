@@ -35,7 +35,7 @@ class ReplyApi(Resource):
         row = int(request.args.get(KEY_ROW, default=REPLY_ROW))
         page = int(request.args.get(KEY_PAGE, default=1))
 
-        replies = Reply.query.filter(Reply.post_id == post_id).order_by(Reply.id.desc()).offset(get_page_offset(page, row)).limit(row).all()
+        replies = Reply.query.filter(Reply.post_id == post_id).filter(Reply.parent_id == 0).order_by(Reply.id.desc()).offset(get_page_offset(page, row)).limit(row).all()
 
         return replies
 
