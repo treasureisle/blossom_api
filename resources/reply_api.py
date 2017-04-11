@@ -66,12 +66,8 @@ class ReplyApi(Resource):
                           parent_id=parent_id, depth=depth)
 
         db.session.add(new_reply)
-        db.session.commit()
 
-        replies = Reply.query.filter(Reply.post_id == post_id).count()
-
-        post.replies = replies
-
+        post.replies += 1
         db.session.merge(post)
         db.session.commit()
 
