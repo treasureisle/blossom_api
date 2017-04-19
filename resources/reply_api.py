@@ -53,8 +53,7 @@ class ReplyApi(Resource):
         text = args[KEY_TEXT]
         parent_id = int(args[KEY_PARENT_ID])
 
-        if parent_id is None:
-            parent_id = 0
+        if parent_id == 0:
             depth = 0
         else:
             parent = Reply.query.filter(Reply.id == parent_id).first()
