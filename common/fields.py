@@ -185,3 +185,13 @@ store_field = {
     "editors_pick_hashtag_id": fields.Integer,
     "editors_pick_title": fields.String
 }
+
+notification_field = {
+    "id": fields.Integer,
+    "user": fields.Nested(user_fields),
+    "sender": fields.Nested(user_fields),
+    "code": fields.Integer,
+    "message": fields.String,
+    "is_read": fields.Boolean,
+    "created_at": fields.DateTime
+}

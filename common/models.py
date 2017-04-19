@@ -434,6 +434,7 @@ class Message(db.Model):
     reciever_id = db.Column(db.ForeignKey("user.id"))
     message = db.Column(db.VARCHAR(512))
     created_at = db.Column(db.DATETIME)
+    is_read = db.Column(db.Boolean)
 
     sender = db.relationship("User", foreign_keys=[sender_id])
     reciever = db.relationship("User", foreign_keys=[reciever_id])
@@ -443,6 +444,7 @@ class Message(db.Model):
         self.reciever_id = reciever_id
         self.message = message
         self.created_at = created_at
+        self.is_read = False
 
 
 class Store(db.Model):
@@ -493,4 +495,26 @@ class Store(db.Model):
         self.today_seller_title = today_seller_title
         self.editors_pick_hashtag_id = editors_pick_hashtag_id
         self.editors_pick_title = editors_pick_title
+
+
+class Notification(db.Model):
+    id = db.Column(db.INT, primary_key=True)
+    user_id = db.Column(db.ForeignKey("user.id"))
+    sender_id = db.Column(db.ForeignKey("user.id"))
+    code = db.Column(db.INT)
+    message = db.Column(db.String)
+    is_read = db.Column(db.Boolean)
+    created_at = db.Column(db.DATETIME)
+
+    def __init__(self, user_id, sender_id, code, message, created_at):
+        self.user_id = user_id
+        self.sender_id = sender_id
+        self.code = code
+        self.message = message
+        self.is_read = False
+        self.created_at = created_at
+
+
+
+
 
