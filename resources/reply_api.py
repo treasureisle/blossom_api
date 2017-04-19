@@ -70,7 +70,7 @@ class ReplyApi(Resource):
         replies = Reply.query.filter(Reply.post_id == post_id).count()
         post.replies = replies
 
-        if parent_id is not None:
+        if parent_id == 0:
             parent_replies = Reply.query.filter(Reply.post_id == post_id).filter(Reply.id == parent_id).count()
             parent = Reply.query.filter(Reply.id == parent_id).first()
             parent.replies = parent_replies
