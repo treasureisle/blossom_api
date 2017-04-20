@@ -152,6 +152,7 @@ message_field = {
     "sender": fields.Nested(user_fields),
     "reciever": fields.Nested(user_fields),
     "message": fields.String,
+    "is_read": fields.Boolean,
     "created_at": fields.DateTime
 }
 
