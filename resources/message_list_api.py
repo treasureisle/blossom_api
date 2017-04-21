@@ -38,7 +38,7 @@ class MessageListApi(Resource):
 
         for user in users:
             message = Message.query.\
-            filter("(sender_id=:id1 and reciever_id=:id2) or (sender_id=:id3 and reciever_id=:id4)").\
+            filter("((sender_id=:id1 and reciever_id=:id2) or (sender_id=:id3 and reciever_id=:id4))").\
             params(id1=current_user.id, id2=user.id, id3=user.id, id4=current_user.id).first()
             user.last_message = message.message
             user.last_message_created_at = message.created_at
