@@ -27,6 +27,6 @@ class NotificationApi(Resource):
     def get(self):
 
         notifications = Notification.query.filter(Notification.user_id == current_user.id).\
-            filter(Notification.is_read is False).all()
+            filter(Notification.is_read == 0).all()
 
         return notifications

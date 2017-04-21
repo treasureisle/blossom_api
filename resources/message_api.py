@@ -6,7 +6,7 @@ from flask.globals import request
 
 from common.mods import db
 from common.fields import message_field
-from common.models import User, Message, MessageTimestamp
+from common.models import User, Message, MessageTimestamp, Notification
 from common.service_configs import MESSAGE_ROW
 from common.api_errors import UserNotFound
 from utils import get_page_offset, api_login_required, get_now_mysql_datetime
@@ -59,6 +59,11 @@ class MessageApi(Resource):
                               created_at=get_now_mysql_datetime())
 
         timestamp = MessageTimestamp.query.filter(MessageTimestamp.user_id == reciever_id).first()
+
+        notification = Notification(user_id=reciever_id, sender_id=sender_id, code=1, message="메세지가 도착하였습니다",
+                                    created_at=get_now_mysql_datetime())
+
+        db.session.add(notification)
 
         if timestamp is None:
             timestamp = MessageTimestamp(user_id=reciever_id, timestamp=get_now_mysql_datetime())
