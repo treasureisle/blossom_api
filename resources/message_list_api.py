@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 
-from flask.ext.restful import Resource, marshal_with
+from flask.ext.restful import Resource, marshal_with, marshal
 from flask.ext.login import current_user
 
-from common.fields import user_fields
+from common.fields import user_message_fields
 from common.models import User, Message
 from utils import api_login_required
 
@@ -18,7 +18,7 @@ LOCATION_FORM = "form"
 
 class MessageListApi(Resource):
     @api_login_required
-    @marshal_with(user_fields, "users")
+    @marshal_with(user_message_fields, "user_messages")
     def get(self):
 
         messages = Message.query.filter("(sender_id=:id1) or (reciever_id=:id2)").\
@@ -35,6 +35,13 @@ class MessageListApi(Resource):
                     user_ids.append(message.reciever_id)
 
         users = User.query.filter(User.user_id.in_(user_ids)).all()
+
+        for user in users:
+            message = Message.query.filter("(sender_id=:id1) or (reciever_id=:id2)").\
+            params(id1=current_user.id, id2=current_user.id).first()
+            user.last_message = message.message
+            user.last_message_created_at = message.created_at
+            user.is_read = message.is_read
 
         return users
 

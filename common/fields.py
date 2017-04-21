@@ -23,6 +23,17 @@ user_fields = {
     "is_me": fields.Boolean
 }
 
+user_message_fields = {
+    "id": fields.Integer,
+    "username": fields.String,
+    "profile_thumb_url": fields.String,
+    "introduce": fields.String,
+    "is_me": fields.Boolean,
+    "last_message": fields.String,
+    "last_message_created_at": fields.DateTime,
+    "is_read": fields.Boolean
+}
+
 user_detail_fields = {
     "id": fields.Integer,
     "username": fields.String,
