@@ -207,3 +207,9 @@ notification_field = {
     "is_read": fields.Boolean,
     "created_at": fields.DateTime
 }
+
+message_timestamp_field = {
+    "id": fields.Integer,
+    "user_id": fields.Integer,
+    "timestamp": fields.DateTime
+}

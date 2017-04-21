@@ -6,7 +6,7 @@ from flask.globals import request
 
 from common.mods import db
 from common.fields import message_field
-from common.models import User, Message
+from common.models import User, Message, MessageTimestamp
 from common.service_configs import MESSAGE_ROW
 from common.api_errors import UserNotFound
 from utils import get_page_offset, api_login_required, get_now_mysql_datetime
@@ -57,6 +57,15 @@ class MessageApi(Resource):
 
         new_message = Message(sender_id=sender_id, reciever_id=reciever_id, message=message,
                               created_at=get_now_mysql_datetime())
+
+        timestamp = MessageTimestamp.query.filter(MessageTimestamp.user_id == reciever_id).first()
+
+        if timestamp is None:
+            timestamp = MessageTimestamp(user_id=reciever_id, timestamp=get_now_mysql_datetime())
+            db.session.add(timestamp)
+        else:
+            timestamp.timestamp = get_now_mysql_datetime()
+            db.session.merge(timestamp)
 
         db.session.add(new_message)
         db.session.commit()

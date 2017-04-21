@@ -515,6 +515,11 @@ class Notification(db.Model):
         self.created_at = created_at
 
 
+class MessageTimestamp(db.Model):
+    id = db.Column(db.INT, primary_key=True)
+    user_id = db.Column(db.ForeignKey("user.id"))
+    timestamp = db.Column(db.DATETIME)
 
-
-
+    def __init__(self, user_id, timestamp):
+        self.user_id = user_id
+        self.timestamp = timestamp
