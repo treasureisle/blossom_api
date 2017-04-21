@@ -34,11 +34,12 @@ class MessageListApi(Resource):
                 if message.reciever_id not in user_ids:
                     user_ids.append(message.reciever_id)
 
-        users = User.query.filter(User.user_id.in_(user_ids)).all()
+        users = User.query.filter(User.id.in_(user_ids)).all()
 
         for user in users:
-            message = Message.query.filter("(sender_id=:id1) or (reciever_id=:id2)").\
-            params(id1=current_user.id, id2=current_user.id).first()
+            message = Message.query.\
+            filter("(sender_id=:id1 and reciever_id=:id2) or (sender_id=:id3 and reciever_id=:id4)").\
+            params(id1=current_user.id, id2=user.id, id3=user.id, id4=current_user.id).first()
             user.last_message = message.message
             user.last_message_created_at = message.created_at
             user.is_read = message.is_read
