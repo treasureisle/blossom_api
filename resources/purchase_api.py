@@ -79,7 +79,7 @@ class PurchaseApi(Resource):
                                 creaetd_at=get_now_mysql_datetime())
 
         db.session.add(new_purchase)
-        db.session.commint()
+        db.session.commit()
 
         return {}
 
