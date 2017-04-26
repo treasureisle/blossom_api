@@ -42,6 +42,7 @@ class PurchaseApi(Resource):
         self.post_parser.add_argument(KEY_ADDRESS2, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_PHONE, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_COMMENT, location=LOCATION_FORM)
+        self.post_parser.add_argument(KEY_IS_PAID, location=LOCATION_FORM)
 
     @api_login_required
     @marshal_with(purchase_field, "purchase")
