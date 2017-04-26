@@ -17,6 +17,7 @@ KEY_COLOR_SIZE_ID = "color_size_id"
 KEY_AMOUNT = "amount"
 KEY_PRICE = "price"
 KEY_PAYMENT = "payment"
+KEY_NAME = "name"
 KEY_ZIPCODE = "zipcode"
 KEY_ADDRESS1 = "address1"
 KEY_ADDRESS2 = "address2"
@@ -34,6 +35,7 @@ class PurchaseApi(Resource):
         self.post_parser.add_argument(KEY_AMOUNT, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_PRICE, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_PAYMENT, location=LOCATION_FORM)
+        self.post_parser.add_argument(KEY_NAME, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_ZIPCODE, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_ADDRESS1, location=LOCATION_FORM)
         self.post_parser.add_argument(KEY_ADDRESS2, location=LOCATION_FORM)
@@ -64,6 +66,7 @@ class PurchaseApi(Resource):
         amount = int(args[KEY_AMOUNT])
         price = int(args[KEY_PRICE])
         payment = int(args[KEY_PAYMENT])
+        name = args[KEY_NAME]
         zipcode = args[KEY_ZIPCODE]
         address1 = args[KEY_ADDRESS1]
         address2 = args[KEY_ADDRESS2]
@@ -71,8 +74,9 @@ class PurchaseApi(Resource):
         comment = args[KEY_COMMENT]
 
         new_purchase = Purchase(post_id=post_id, seller_id=seller_id, buyer_id=buyer_id, color_size_id=color_size_id,
-                                amount=amount, price=price, payment=payment, zipcode=zipcode, address1=address1,
-                                address2=address2, phone=phone, comment=comment, creaetd_at=get_now_mysql_datetime())
+                                amount=amount, price=price, payment=payment, name=name, zipcode=zipcode,
+                                address1=address1, address2=address2, phone=phone, comment=comment,
+                                creaetd_at=get_now_mysql_datetime())
 
         db.session.add(new_purchase)
         db.session.commint()
