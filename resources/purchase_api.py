@@ -23,6 +23,7 @@ KEY_ADDRESS1 = "address1"
 KEY_ADDRESS2 = "address2"
 KEY_PHONE = "phone"
 KEY_COMMENT = "comment"
+KEY_IS_PAID = "is_paid"
 
 LOCATION_FORM = "form"
 
@@ -72,10 +73,11 @@ class PurchaseApi(Resource):
         address2 = args[KEY_ADDRESS2]
         phone = args[KEY_PHONE]
         comment = args[KEY_COMMENT]
+        is_paid = args[KEY_IS_PAID]
 
         new_purchase = Purchase(post_id=post_id, seller_id=seller_id, buyer_id=buyer_id, color_size_id=color_size_id,
                                 amount=amount, price=price, payment=payment, name=name, zipcode=zipcode,
-                                address1=address1, address2=address2, phone=phone, comment=comment,
+                                address1=address1, address2=address2, phone=phone, comment=comment, is_paid=is_paid,
                                 creaetd_at=get_now_mysql_datetime())
 
         db.session.add(new_purchase)

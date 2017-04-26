@@ -379,9 +379,10 @@ class Purchase(db.Model):
     delivery_code = db.Column(db.INT)
     delivery_number = db.Column(db.VARCHAR(32))
     created_at = db.Column(db.DATETIME)
+    is_paid = db.Column(db.Boolean)
 
     def __init__(self, post_id, seller_id, buyer_id, color_size_id, amount, price, payment, name, zipcode, address1,
-                 address2, phone, creaetd_at, comment=None, delivery_code=None, delivery_number=None):
+                 address2, phone, creaetd_at, is_paid, comment=None, delivery_code=None, delivery_number=None):
         self.post_id = post_id
         self.seller_id = seller_id
         self.buyer_id = buyer_id
@@ -397,6 +398,7 @@ class Purchase(db.Model):
         self.comment = comment
         self.delivery_code = delivery_code
         self.delivery_number = delivery_number
+        self.is_paid = is_paid
         self.created_at = creaetd_at
 
 
