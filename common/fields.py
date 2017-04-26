@@ -130,7 +130,7 @@ purchase_field = {
     "comment": fields.String,
     "delivery_code": fields.Integer,
     "delivery_number": fields.String,
-    "is_paid": fields.Boolean,
+    "is_paid": fields.Integer,
     "created_at": fields.DateTime
 }
 

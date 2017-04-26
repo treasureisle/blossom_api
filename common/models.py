@@ -379,7 +379,7 @@ class Purchase(db.Model):
     delivery_code = db.Column(db.INT)
     delivery_number = db.Column(db.VARCHAR(32))
     created_at = db.Column(db.DATETIME)
-    is_paid = db.Column(db.Boolean)
+    is_paid = db.Column(db.INT)
 
     def __init__(self, post_id, seller_id, buyer_id, color_size_id, amount, price, payment, name, zipcode, address1,
                  address2, phone, creaetd_at, is_paid, comment=None, delivery_code=None, delivery_number=None):
