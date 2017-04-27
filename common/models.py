@@ -157,7 +157,6 @@ class Post(db.Model):
     color_size = db.relationship("ColorSize", backref="post", cascade="all,delete", lazy="dynamic")
     like = db.relationship("Like", backref="post", cascade="all,delete", lazy="dynamic")
     reply = db.relationship("Reply", backref="post", cascade="all,delete", lazy="dynamic")
-    purchase = db.relationship("Purchase", backref="post", cascade="all,delete", lazy="dynamic")
     hashtag_post = db.relationship("HashtagPost", backref="post", cascade="all,delete", lazy="dynamic")
     basket = db.relationship("Basket", backref="post", cascade="all,delete", lazy="dynamic")
 
@@ -381,6 +380,9 @@ class Purchase(db.Model):
     delivery_number = db.Column(db.VARCHAR(32))
     created_at = db.Column(db.DATETIME)
     is_paid = db.Column(db.INT)
+
+    seller = db.relationship("User", foreign_keys=[seller_id])
+    buyer = db.relationship("User", foreign_keys=[buyer_id])
 
     def __init__(self, post_id, seller_id, buyer_id, color_size_id, amount, price, payment, name, zipcode, address1,
                  address2, phone, creaetd_at, is_paid, comment=None, delivery_code=None, delivery_number=None):
