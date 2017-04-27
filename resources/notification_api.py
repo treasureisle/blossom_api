@@ -3,7 +3,7 @@
 from flask.ext.restful import Resource, marshal_with, reqparse
 from flask.ext.login import current_user
 
-from common.fields import message_field
+from common.fields import notification_field
 from common.models import Notification
 from utils import api_login_required
 
@@ -23,7 +23,7 @@ class NotificationApi(Resource):
         self.post_parser.add_argument(KEY_MESSAGE, location=LOCATION_FORM)
 
     @api_login_required
-    @marshal_with(message_field, "notification")
+    @marshal_with(notification_field, "notification")
     def get(self):
 
         notifications = Notification.query.filter(Notification.user_id == current_user.id).\
