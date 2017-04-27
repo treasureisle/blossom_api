@@ -215,6 +215,7 @@ class ColorSize(db.Model):
     created_at = db.Column(db.DATETIME)
 
     basket = db.relationship("Basket", backref="color_size", cascade="all,delete", lazy="dynamic")
+    purchase = db.relationship("Purchase", backref="color_size", cascade="all,delete", lazy="dynamic")
 
     def __init__(self, post_id, name, available, created_at):
         self.post_id = post_id
