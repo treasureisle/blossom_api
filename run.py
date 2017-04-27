@@ -37,6 +37,7 @@ from resources.reply_detail_api import ReplyDetailApi
 from resources.message_list_api import MessageListApi
 from resources.notification_api import NotificationApi
 from resources.message_timestamp_api import MessageTimestampApi
+from resources.sell_api import SellApi
 
 from common.mods import api, bcrypt, login_manager
 
@@ -75,6 +76,7 @@ def register_apis():
     api.add_resource(MessageListApi, "/message_list")
     api.add_resource(NotificationApi, "/notification")
     api.add_resource(MessageTimestampApi, "/message_timestamp")
+    api.add_resource(SellApi, "/sell", "/sell/<int:purchase_id>")
 
 
 # noinspection PyUnusedLocal
