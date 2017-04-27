@@ -76,7 +76,6 @@ class User(db.Model):
     like = db.relationship("Like", backref="user", cascade="all,delete", lazy="dynamic")
     reply = db.relationship("Reply", backref="user", cascade="all,delete", lazy="dynamic")
     basket = db.relationship("Basket", backref="user", cascade="all,delete", lazy="dynamic")
-    purchase = db.relationship("Purchase", backref="user", cascade="all,delete", lazy="dynamic")
 
     def __init__(self, username, created_at, last_logged_at, profile_thumb_url, access_token="", level=0, point=0,
                  seller_level=0, is_activated=0,
@@ -157,6 +156,7 @@ class Post(db.Model):
     color_size = db.relationship("ColorSize", backref="post", cascade="all,delete", lazy="dynamic")
     like = db.relationship("Like", backref="post", cascade="all,delete", lazy="dynamic")
     reply = db.relationship("Reply", backref="post", cascade="all,delete", lazy="dynamic")
+    purchase = db.relationship("Purchase", backref="post", cascade="all,delete", lazy="dynamic")
     hashtag_post = db.relationship("HashtagPost", backref="post", cascade="all,delete", lazy="dynamic")
     basket = db.relationship("Basket", backref="post", cascade="all,delete", lazy="dynamic")
 
