@@ -512,6 +512,9 @@ class Notification(db.Model):
     is_read = db.Column(db.Boolean)
     created_at = db.Column(db.DATETIME)
 
+    sender = db.relationship("User", foreign_keys=[sender_id])
+    user = db.relationship("User", foreign_keys=[user_id])
+
     def __init__(self, user_id, sender_id, code, message, created_at):
         self.user_id = user_id
         self.sender_id = sender_id
