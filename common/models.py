@@ -532,3 +532,14 @@ class MessageTimestamp(db.Model):
     def __init__(self, user_id, timestamp):
         self.user_id = user_id
         self.timestamp = timestamp
+
+
+class Firebase(db.Model):
+    id = db.Coulmn(db.INT, primary_key=True)
+    user_id = db.Column(db.ForeignKey("user.id"))
+    device_token = db.Column(db.String)
+
+    def __init__(self, user_id, device_token):
+        self.user_id = user_id
+        self.device_token = device_token
+

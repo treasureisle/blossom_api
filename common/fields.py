@@ -214,3 +214,9 @@ message_timestamp_field = {
     "user_id": fields.Integer,
     "timestamp": fields.DateTime
 }
+
+firebase_field = {
+    "id": fields.Integer,
+    "user_id": fields.Integer,
+    "device_token": fields.String
+}
