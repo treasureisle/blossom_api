@@ -535,7 +535,7 @@ class MessageTimestamp(db.Model):
 
 
 class Firebase(db.Model):
-    id = db.Coulmn(db.INT, primary_key=True)
+    id = db.Column(db.INT, primary_key=True)
     user_id = db.Column(db.ForeignKey("user.id"))
     device_token = db.Column(db.String)
 
