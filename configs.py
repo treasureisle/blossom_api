@@ -46,6 +46,8 @@ CELERY_IMPORTS = ("tasks",)
 # celery result backend
 CELERY_RESULT_BACKEND = "redis://host:port/dbname"
 
+FIREBASE_KEY = "AIzaSyAZIpKFzpZbPI2-trS9LHXtOHUQRVeiFoo"
+
 # frontend url
 # ex) http://gluvi5.com
 WWW_URL = "http(s)://WWW_URL"

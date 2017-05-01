@@ -45,6 +45,7 @@ class User(db.Model):
     # 소셜 계정 미적용
     id = db.Column(db.INT, primary_key=True)
     access_token = db.Column(db.VARCHAR(64))
+    fb_access_token = db.Column(db.VARCHAR(256))
     username = db.Column(db.VARCHAR(32), unique=True)
     email = db.Column(db.VARCHAR(64), unique=True)
     password = db.Column(db.VARCHAR(64))

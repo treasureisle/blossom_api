@@ -6,9 +6,9 @@ from flask.ext.login import current_user
 from flask.ext.restful import abort
 from common.api_errors import Forbidden
 from common.mods import db, bcrypt
-from common.service_configs import CLIENT_ACCESS_TOKEN_SALT
+from common.service_configs import CLIENT_ACCESS_TOKEN_SALT, USER_PROFILE_HEIGHT_NORMAL, USER_PROFILE_WIDTH_NORMAL
 from common.config_keys import KEY_CDN_URL, KEY_AWS_ACCESS_KEY_ID, KEY_AWS_ACCESS_SECRET, KEY_S3_BUCKET
-from configs import API_URL
+from configs import API_URL, FIREBASE_KEY
 from boto3 import client
 from boto3.s3.transfer import S3Transfer
 from PIL import ImageOps, ExifTags, Image
@@ -18,6 +18,7 @@ import time
 import hashlib
 import datetime
 import arrow
+import tempfile
 
 __author__ = "Philgyu, Seong"
 __email__ = "phil@treasureisle.co"
@@ -227,3 +228,62 @@ def base36encode(number):
 def make_thumbnail(image, size=(100, 100)):
     return ImageOps.fit(image, size, Image.ANTIALIAS,
                         centering=(0.5, 0.5))
+
+
+def send_notification(user_id, notification_title, notification_message):
+    url = 'https://fcm.googleapis.com/fcm/send'
+    body = {
+    "data":{
+       "title":"mytitle",
+       "body":"mybody",
+      "url":"myurl"
+    },
+    "notification":{
+      "title":"My web app name",
+      "body":"message",
+      "content_available": "true"
+    },
+     "to":"device_id_here"
+     }
+
+
+    headers = {"Content-Type":"application/json",
+            "Authorization": "key=%s" % FIREBASE_KEY}
+
+    requests.post(url, data=json.dumps(body), headers=headers)
+
+
+def upload_fb_thumb(app, user_id, fb_id):
+    return upload_image_from_url(app,
+                                 "http://graph.facebook.com/%s/picture?redirect=1&type=large&height=600&width=600"
+                                 % str(fb_id),
+                                 make_profile_keyname(user_id),
+                                 thumbnail_size=(USER_PROFILE_WIDTH_NORMAL, USER_PROFILE_HEIGHT_NORMAL))
+
+
+def upload_image_from_url(app, url, keyname, thumbnail_size=None):
+    filename = download_file(url)
+
+    if thumbnail_size is not None:
+        image = Image.open(filename)
+        thumbnail = make_thumbnail(image, thumbnail_size)
+        tf = tempfile.NamedTemporaryFile()
+        thumbnail.save(tf, format="JPEG")
+        filename = tf.name
+    return upload_file_to_s3(app, filename, keyname)
+
+
+
+def download_file(url):
+    filename = tempfile.NamedTemporaryFile().name
+    # local_filename = filename
+    # NOTE the stream=True parameter
+    r = requests.get(url, stream=True)
+    if r.status_code == 200:
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=1024):
+                if chunk:  # filter out keep-alive new chunks
+                    f.write(chunk)
+                    f.flush()
+        return filename
+    return None
