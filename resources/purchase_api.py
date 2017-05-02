@@ -6,7 +6,7 @@ from flask.ext.login import current_user
 from common.mods import db
 from common.fields import purchase_field
 from common.api_errors import PostNotFound, PurchaseNotFound, Forbidden
-from common.models import Post, Purchase
+from common.models import Post, Purchase, User
 from utils import api_login_required, get_now_mysql_datetime
 
 __author__ = "Philgyu,Seong"
@@ -58,6 +58,7 @@ class PurchaseApi(Resource):
         args = self.post_parser.parse_args()
 
         post = Post.query.filter(Post.id == post_id).first()
+        user = User.query.filter(User.id == current_user.id).first()
 
         if post is None:
             raise PostNotFound
@@ -81,7 +82,14 @@ class PurchaseApi(Resource):
                                 address1=address1, address2=address2, phone=phone, comment=comment, is_paid=is_paid,
                                 creaetd_at=get_now_mysql_datetime())
 
+        user.recent_zipcode = zipcode
+        user.recent_add1 = address1
+        user.recent_add2 = address2
+        user.recent_name = name
+        user.recent_phone = phone
+
         db.session.add(new_purchase)
+        db.session.merge(user)
         db.session.commit()
 
         return {}
