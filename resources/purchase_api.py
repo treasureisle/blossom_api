@@ -5,8 +5,8 @@ from flask.ext.login import current_user
 
 from common.mods import db
 from common.fields import purchase_field
-from common.api_errors import PostNotFound, PurchaseNotFound, Forbidden
-from common.models import Post, Purchase, User
+from common.api_errors import PostNotFound, PurchaseNotFound, Forbidden, NotEnoughAvailable
+from common.models import Post, Purchase, User, ColorSize
 from utils import api_login_required, get_now_mysql_datetime
 
 __author__ = "Philgyu,Seong"
@@ -88,8 +88,15 @@ class PurchaseApi(Resource):
         user.recent_name = name
         user.recent_phone = phone
 
+        color_size = ColorSize.query.filter(ColorSize.id == color_size_id).first()
+        color_size.amount -= amount
+
+        if color_size.amount < 0:
+            raise NotEnoughAvailable
+
         db.session.add(new_purchase)
         db.session.merge(user)
+        db.session.merge(color_size)
         db.session.commit()
 
         return {}

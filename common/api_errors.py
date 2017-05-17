@@ -113,6 +113,10 @@ class FollowNotFound(HTTPException):
     pass
 
 
+class NotEnoughAvailable(HTTPException):
+    pass
+
+
 class InternalServerError(HTTPException):
     pass
 
@@ -228,6 +232,10 @@ errors = {
     },
     "FollowNotFound": {
         "message": "follow not found",
+        "status": 404
+    },
+    "NotEnoughAvailable": {
+        "message": "not enough available",
         "status": 404
     },
     "InternalServerError": {
